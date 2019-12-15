@@ -1,4 +1,5 @@
 import turtle
+import winsound
 
 wn = turtle.Screen()
 wn.title = ("Pong")
@@ -7,6 +8,10 @@ wn.setup(width=800, height=600)
 wn.tracer(0)
 
 print('teste')
+
+# Score
+score_a = 0
+score_b = 0
 
 # Paddle A
 paddle_a = turtle.Turtle()
@@ -45,6 +50,8 @@ pen.penup()
 pen.hideturtle()
 pen.goto(0, 260)
 pen.write("Player A: 0  Player B: 0", align="center", font=("Courier", 24, "normal"))
+
+
 
 # Function
 def paddle_a_up():
@@ -94,10 +101,20 @@ while True:
     if ball.xcor() > 390:
         ball.goto(0, 0)
         ball.dx *= -1
+        pen.clear()
+        score_a += 1
+        pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+
 
     if ball.xcor() < -390:
         ball.goto(0, 0)
         ball.dx *= -1
+        pen.clear()
+        score_b += 1
+        pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
+        winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+
 
     # Paddle and ball collisions
     if ball.xcor() < -340 and ball.ycor() < paddle_a.ycor() + 50 and ball.ycor() > paddle_a.ycor() - 50:
